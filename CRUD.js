@@ -28,6 +28,10 @@ const serverUrl = "https://devil-dishes.herokuapp.com/";
 }
 
 
+
+//CRUD
+
+
 /**
  * add recipe if recipe title DNE
  * @param {String} title 
@@ -51,6 +55,23 @@ async function addRecipe(title, img, ingredients){
     const res = await response.text();
     console.log(res);
     return Promise.resolve(res);
+}
+
+/**
+ * return all recipes for a user(for now, all recipes in the db)
+ * @returns {Array} an array of java objects contains all recipes
+ */
+ async function getRecipe(){ 
+    // set mode automatically 
+    const response = await fetch(serverUrl + "getrecipe", {
+        method: "POST",
+        headers : {
+            "Content-type": "application/json",
+        }
+    });
+    const res = await response.text();
+    console.log(res);
+    return Promise.resolve(JSON.parse(res));
 }
 
 /**
@@ -103,19 +124,3 @@ async function deleteRecipe(title, img, ingredients){
     return Promise.resolve(res);
 }
 
-/**
- * return all recipes for a user(for now, all recipes in the db)
- * @returns {Array} an array of java objects contains all recipes
- */
-async function getRecipe(){ 
-    // set mode automatically 
-    const response = await fetch(serverUrl + "getrecipe", {
-        method: "POST",
-        headers : {
-            "Content-type": "application/json",
-        }
-    });
-    const res = await response.text();
-    console.log(res);
-    return Promise.resolve(JSON.parse(res));
-}
